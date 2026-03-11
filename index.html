@@ -604,192 +604,203 @@ function drawPnlChart(rev, pnls, lbs) {
   const ctx = canvas.getContext('2d');
   ctx.scale(dpr, dpr);
 
-  const PAD_L = 52, PAD_R = 16, PAD_T = 16, PAD_B = 36;
+  const PAD_L = 50, PAD_R = 12, PAD_T = 16, PAD_B = 40;
   const cW = W - PAD_L - PAD_R;
   const cH = H - PAD_T - PAD_B;
   const n = pnls.length;
 
-  const maxV = Math.max(...pnls.map(Math.abs), 10) * 1.15;
+  // Bar sizing: fixed slot width so bars are always chunky
+  const slotW = cW / n;
+  const barW = Math.max(Math.floor(slotW * 0.55), 4);
+  const barOffset = (slotW - barW) / 2;
+
+  const maxV = Math.max(...pnls.map(Math.abs), 50) * 1.2;
   const zeroY = PAD_T + cH / 2;
 
-  // Grid lines & Y labels
-  const steps = [-200, -100, 0, 100, 200];
-  ctx.font = `10px -apple-system,Helvetica Neue,sans-serif`;
-  ctx.textAlign = 'right';
-  steps.forEach(v => {
-    const y = PAD_T + cH * (1 - (v + maxV) / (2 * maxV));
-    if (y < PAD_T || y > PAD_T + cH) return;
-    ctx.strokeStyle = v === 0 ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)';
-    ctx.lineWidth = v === 0 ? 1 : 0.5;
-    ctx.setLineDash(v === 0 ? [] : [3, 4]);
-    ctx.beginPath(); ctx.moveTo(PAD_L, y); ctx.lineTo(PAD_L + cW, y); ctx.stroke();
-    ctx.setLineDash([]);
-    ctx.fillStyle = v === 0 ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.45)';
-    ctx.fillText('$' + v, PAD_L - 6, y + 3.5);
-  });
+  // Nice Y grid values
+  const niceMax = Math.ceil(maxV / 50) * 50;
+  const ySteps = [];
+  for (let v = -niceMax; v <= niceMax; v += 50) ySteps.push(v);
 
-  // Bars
-  const totalGap = cW * 0.35;
-  const barW = Math.min((cW - totalGap) / n, 18);
-  const gap = (cW - barW * n) / (n + 1);
+  const SF = `-apple-system, "SF Pro Text", "Helvetica Neue", sans-serif`;
 
-  // Hover state
   let hoveredIdx = -1;
-  const barRects = [];
+  const hitZones = [];
 
-  function draw(hovered = -1) {
-    // Clear bars area only
-    ctx.clearRect(PAD_L, PAD_T - 2, cW + PAD_R + 2, cH + 4);
-    // Redraw grid
-    steps.forEach(v => {
-      const y = PAD_T + cH * (1 - (v + maxV) / (2 * maxV));
-      if (y < PAD_T || y > PAD_T + cH) return;
-      ctx.strokeStyle = v === 0 ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.05)';
-      ctx.lineWidth = v === 0 ? 1 : 0.5;
-      ctx.setLineDash(v === 0 ? [] : [3, 4]);
+  function yPos(v) {
+    return PAD_T + cH * (1 - (v + niceMax) / (2 * niceMax));
+  }
+
+  function roundRect(c, x, y, w, h, r, isPos) {
+    r = Math.min(r, w / 2, Math.abs(h) / 2);
+    c.beginPath();
+    if (isPos) {
+      // Round top corners only
+      c.moveTo(x + r, y);
+      c.lineTo(x + w - r, y);
+      c.arcTo(x + w, y, x + w, y + r, r);
+      c.lineTo(x + w, y + h);
+      c.lineTo(x, y + h);
+      c.lineTo(x, y + r);
+      c.arcTo(x, y, x + r, y, r);
+    } else {
+      // Round bottom corners only
+      c.moveTo(x, y);
+      c.lineTo(x + w, y);
+      c.lineTo(x + w, y + h - r);
+      c.arcTo(x + w, y + h, x + w - r, y + h, r);
+      c.lineTo(x + r, y + h);
+      c.arcTo(x, y + h, x, y + h - r, r);
+      c.lineTo(x, y);
+    }
+    c.closePath();
+  }
+
+  function draw(hovered) {
+    ctx.clearRect(0, 0, W, H);
+
+    // Y grid lines + labels
+    ctx.textAlign = 'right';
+    ctx.textBaseline = 'middle';
+    ySteps.forEach(v => {
+      const y = yPos(v);
+      if (y < PAD_T - 1 || y > PAD_T + cH + 1) return;
+      const isZero = v === 0;
+      ctx.strokeStyle = isZero ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = isZero ? 1 : 0.5;
+      ctx.setLineDash(isZero ? [] : [2, 5]);
       ctx.beginPath(); ctx.moveTo(PAD_L, y); ctx.lineTo(PAD_L + cW, y); ctx.stroke();
       ctx.setLineDash([]);
+      // Only label every 100
+      if (v % 100 === 0) {
+        ctx.fillStyle = isZero ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.4)';
+        ctx.font = `500 11px ${SF}`;
+        ctx.fillText('$' + v, PAD_L - 7, y);
+      }
     });
 
-    barRects.length = 0;
+    // Bars
+    hitZones.length = 0;
     pnls.forEach((v, i) => {
-      const x = PAD_L + gap + i * (barW + gap);
       const isPos = v >= 0;
-      const barH = Math.max(Math.abs(v) / maxV * (cH / 2), 2);
-      const y = isPos ? zeroY - barH : zeroY;
-      barRects.push({ x, y: PAD_T, w: barW, h: cH, i });
-
       const isHov = i === hovered;
-      const alpha = isHov ? 1 : 0.75;
-      const color = isPos ? `rgba(48,209,88,${alpha})` : `rgba(255,69,58,${alpha})`;
+      const barH = (Math.abs(v) / niceMax) * (cH / 2);
+      const x = PAD_L + i * slotW + barOffset;
+      const y = isPos ? zeroY - barH : zeroY;
 
-      // Glow on hover
+      hitZones.push({ x: PAD_L + i * slotW, w: slotW, i });
+
+      const baseAlpha = isHov ? 0.95 : 0.72;
+      ctx.fillStyle = isPos ? `rgba(48,209,88,${baseAlpha})` : `rgba(255,69,58,${baseAlpha})`;
+
       if (isHov) {
-        ctx.shadowColor = isPos ? '#30d158' : '#ff453a';
-        ctx.shadowBlur = 12;
+        ctx.shadowColor = isPos ? 'rgba(48,209,88,0.6)' : 'rgba(255,69,58,0.6)';
+        ctx.shadowBlur = 10;
       }
 
-      // Bar with rounded top/bottom
-      const r = Math.min(3, barW / 2);
-      ctx.fillStyle = color;
-      ctx.beginPath();
-      if (isPos) {
-        ctx.moveTo(x + r, y);
-        ctx.lineTo(x + barW - r, y);
-        ctx.quadraticCurveTo(x + barW, y, x + barW, y + r);
-        ctx.lineTo(x + barW, y + barH);
-        ctx.lineTo(x, y + barH);
-        ctx.lineTo(x, y + r);
-        ctx.quadraticCurveTo(x, y, x + r, y);
-      } else {
-        ctx.moveTo(x, y);
-        ctx.lineTo(x + barW, y);
-        ctx.lineTo(x + barW, y + barH - r);
-        ctx.quadraticCurveTo(x + barW, y + barH, x + barW - r, y + barH);
-        ctx.lineTo(x + r, y + barH);
-        ctx.quadraticCurveTo(x, y + barH, x, y + barH - r);
-        ctx.lineTo(x, y);
-      }
-      ctx.closePath();
+      roundRect(ctx, x, isPos ? zeroY - barH : zeroY, barW, barH, 3, isPos);
       ctx.fill();
       ctx.shadowBlur = 0;
     });
 
-    // X axis labels — show every ~7th
-    ctx.fillStyle = 'rgba(255,255,255,0.65)';
-    ctx.font = '11px -apple-system,Helvetica Neue,sans-serif';
+    // X axis labels — pick ~7 evenly spaced, use short format "20 Jan"
+    ctx.fillStyle = 'rgba(255,255,255,0.62)';
+    ctx.font = `500 11px ${SF}`;
     ctx.textAlign = 'center';
-    const step = Math.ceil(n / 7);
-    pnls.forEach((_, i) => {
-      if (i % step !== 0 && i !== n - 1) return;
-      const x = PAD_L + gap + i * (barW + gap) + barW / 2;
-      ctx.fillText(lbs[i], x, H - 8);
+    ctx.textBaseline = 'alphabetic';
+    const labelStep = Math.max(1, Math.floor(n / 7));
+    const shown = new Set();
+    for (let i = 0; i < n; i += labelStep) shown.add(i);
+    shown.add(n - 1);
+    shown.forEach(i => {
+      // Format: "20 Jan" from "Wed 20 Jan" — drop day name
+      const parts = rev[i].date.split(' ');
+      const shortLbl = parts.length >= 3 ? parts[1] + ' ' + parts[2] : rev[i].date;
+      const x = PAD_L + i * slotW + slotW / 2;
+      ctx.fillText(shortLbl, x, H - 10);
     });
 
-    // Zero line label
-    ctx.fillStyle = 'rgba(255,255,255,0.7)';
-    ctx.textAlign = 'right';
-    ctx.font = '10px -apple-system,Helvetica Neue,sans-serif';
-    ctx.fillText('$0', PAD_L - 6, zeroY + 3.5);
-
-    // Tooltip on hover
-    if (hovered >= 0) {
+    // Hover tooltip
+    if (hovered >= 0 && hovered < pnls.length) {
       const v = pnls[hovered];
-      const lbl = rev[hovered].date;
-      const x = PAD_L + gap + hovered * (barW + gap) + barW / 2;
       const isPos = v >= 0;
-      const txt = (isPos ? '+' : '') + f(Math.abs(v));
-      const pctTxt = (isPos ? '+' : '') + rev[hovered].pct.toFixed(2) + '%';
+      const d = rev[hovered];
+      const line1 = d.date;
+      const line2 = (isPos ? '+' : '') + f(Math.abs(v));
+      const line3 = (isPos ? '+' : '') + d.pct.toFixed(2) + '%';
 
-      ctx.font = `600 13px -apple-system,Helvetica Neue,sans-serif`;
-      const tw = Math.max(ctx.measureText(txt).width, ctx.measureText(lbl).width) + 24;
-      const th = 58;
-      let tx = x - tw / 2;
-      if (tx < PAD_L) tx = PAD_L;
-      if (tx + tw > W - PAD_R) tx = W - PAD_R - tw;
-      const ty = PAD_T + 4;
+      ctx.font = `600 13px ${SF}`;
+      const tw = Math.max(
+        ctx.measureText(line1).width,
+        ctx.measureText(line2).width,
+        ctx.measureText(line3).width
+      ) + 28;
+      const th = 64;
+      const bx = PAD_L + hovered * slotW + slotW / 2;
+      let tx = bx - tw / 2;
+      tx = Math.max(PAD_L, Math.min(tx, W - PAD_R - tw));
+      const ty = PAD_T + 2;
 
-      // Box
-      ctx.fillStyle = 'rgba(20,20,22,0.97)';
-      ctx.strokeStyle = isPos ? 'rgba(48,209,88,0.3)' : 'rgba(255,69,58,0.3)';
-      ctx.lineWidth = 0.5;
-      const rr = 10;
+      // Shadow + box
+      ctx.shadowColor = 'rgba(0,0,0,0.5)';
+      ctx.shadowBlur = 16;
+      ctx.fillStyle = 'rgba(18,18,20,0.97)';
+      ctx.strokeStyle = isPos ? 'rgba(48,209,88,0.35)' : 'rgba(255,69,58,0.35)';
+      ctx.lineWidth = 0.75;
+      const br = 10;
       ctx.beginPath();
-      ctx.moveTo(tx + rr, ty); ctx.lineTo(tx + tw - rr, ty);
-      ctx.quadraticCurveTo(tx + tw, ty, tx + tw, ty + rr);
-      ctx.lineTo(tx + tw, ty + th - rr);
-      ctx.quadraticCurveTo(tx + tw, ty + th, tx + tw - rr, ty + th);
-      ctx.lineTo(tx + rr, ty + th);
-      ctx.quadraticCurveTo(tx, ty + th, tx, ty + th - rr);
-      ctx.lineTo(tx, ty + rr);
-      ctx.quadraticCurveTo(tx, ty, tx + rr, ty);
-      ctx.closePath();
+      ctx.roundRect(tx, ty, tw, th, br);
       ctx.fill(); ctx.stroke();
+      ctx.shadowBlur = 0;
 
-      // Text
       ctx.textAlign = 'left';
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      ctx.font = `500 10px -apple-system,Helvetica Neue,sans-serif`;
-      ctx.fillText(lbl, tx + 12, ty + 17);
+      ctx.textBaseline = 'alphabetic';
+
+      ctx.fillStyle = 'rgba(255,255,255,0.38)';
+      ctx.font = `500 10px ${SF}`;
+      ctx.fillText(line1, tx + 13, ty + 18);
 
       ctx.fillStyle = isPos ? '#30d158' : '#ff453a';
-      ctx.font = `700 14px -apple-system,Helvetica Neue,sans-serif`;
-      ctx.fillText(txt, tx + 12, ty + 35);
+      ctx.font = `700 14px ${SF}`;
+      ctx.fillText(line2, tx + 13, ty + 37);
 
-      ctx.fillStyle = 'rgba(255,255,255,0.35)';
-      ctx.font = `500 11px -apple-system,Helvetica Neue,sans-serif`;
-      ctx.fillText(pctTxt, tx + 12, ty + 50);
+      ctx.fillStyle = 'rgba(255,255,255,0.4)';
+      ctx.font = `500 11px ${SF}`;
+      ctx.fillText(line3, tx + 13, ty + 53);
     }
   }
 
-  draw();
+  draw(-1);
 
-  // Mouse interaction
   canvas.onmousemove = e => {
     const rect = canvas.getBoundingClientRect();
-    const mx = e.clientX - rect.left;
-    const my = e.clientY - rect.top;
+    const mx = (e.clientX - rect.left);
     let found = -1;
-    barRects.forEach(b => { if (mx >= b.x && mx <= b.x + b.w) found = b.i; });
+    hitZones.forEach(z => { if (mx >= z.x && mx < z.x + z.w) found = z.i; });
     if (found !== hoveredIdx) {
       hoveredIdx = found;
       draw(hoveredIdx);
-      // Update hover box
+      const total = pnls.reduce((a, b) => a + b, 0);
       if (found >= 0) {
         const v = pnls[found];
         const isPos = v >= 0;
-        document.getElementById('pnlHoverVal').textContent = (isPos ? '+' : '') + f(Math.abs(v));
+        document.getElementById('pnlHoverVal').textContent = (isPos?'+':'') + f(Math.abs(v));
         document.getElementById('pnlHoverVal').style.color = isPos ? 'var(--green)' : 'var(--red)';
         document.getElementById('pnlHoverBox').querySelector('div').textContent = rev[found].date;
       } else {
-        const total = pnls.reduce((a, b) => a + b, 0);
-        document.getElementById('pnlHoverVal').textContent = (total >= 0 ? '+' : '') + f(Math.abs(total));
+        document.getElementById('pnlHoverVal').textContent = (total>=0?'+':'') + f(Math.abs(total));
         document.getElementById('pnlHoverVal').style.color = 'var(--green)';
         document.getElementById('pnlHoverBox').querySelector('div').textContent = 'Total PNL';
       }
     }
   };
-  canvas.onmouseleave = () => { hoveredIdx = -1; draw(-1); };
+  canvas.onmouseleave = () => {
+    hoveredIdx = -1; draw(-1);
+    const total = pnls.reduce((a, b) => a + b, 0);
+    document.getElementById('pnlHoverVal').textContent = (total>=0?'+':'') + f(Math.abs(total));
+    document.getElementById('pnlHoverVal').style.color = 'var(--green)';
+    document.getElementById('pnlHoverBox').querySelector('div').textContent = 'Total PNL';
+  };
 }
 
 function expCsv(){
