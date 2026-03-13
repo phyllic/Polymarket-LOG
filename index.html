@@ -34,7 +34,6 @@
 html{scroll-behavior:smooth}
 body{font-family:var(--sf);background:var(--bg);color:var(--t1);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 
-/* AMBIENT */
 .amb{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .orb{position:absolute;border-radius:50%;filter:blur(130px);opacity:.1}
 .o1{width:700px;height:700px;background:var(--cyan);top:-300px;left:-150px;animation:d1 22s ease-in-out infinite}
@@ -47,44 +46,23 @@ body{font-family:var(--sf);background:var(--bg);color:var(--t1);min-height:100vh
 .app{position:relative;z-index:1}
 .wrap{max-width:1200px;margin:0 auto;padding:0 24px 80px}
 
-/* TOPBAR */
-.topbar{
-  position:sticky;top:0;z-index:100;
-  backdrop-filter:saturate(200%) blur(24px);
-  -webkit-backdrop-filter:saturate(200%) blur(24px);
-  background:rgba(0,0,0,0.75);
-  border-bottom:.5px solid rgba(255,255,255,0.09);
-}
-.topbar-in{
-  max-width:1200px;margin:0 auto;height:52px;
-  padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;
-}
+.topbar{position:sticky;top:0;z-index:100;backdrop-filter:saturate(200%) blur(24px);-webkit-backdrop-filter:saturate(200%) blur(24px);background:rgba(0,0,0,0.75);border-bottom:.5px solid rgba(255,255,255,0.09);}
+.topbar-in{max-width:1200px;margin:0 auto;height:52px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;}
 .brand{display:flex;align-items:center;gap:10px;font-size:16px;font-weight:600;letter-spacing:-.3px}
-.brand-icon{
-  width:32px;height:32px;border-radius:8px;
-  background:linear-gradient(135deg,var(--cyan),var(--blue));
-  display:flex;align-items:center;justify-content:center;font-size:15px;
-  box-shadow:0 2px 12px rgba(50,210,245,0.3);
-}
+.brand-icon{width:32px;height:32px;border-radius:8px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:flex;align-items:center;justify-content:center;font-size:15px;box-shadow:0 2px 12px rgba(50,210,245,0.3);}
 .top-bal{font-size:16px;font-weight:600;color:var(--green);letter-spacing:-.3px}
 .top-badge{font-size:12px;color:var(--t2);background:var(--glass);border:.5px solid var(--glass-b);padding:4px 11px;border-radius:100px}
 
-/* HERO */
 .hero{padding:56px 0 44px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:28px}
 .hero-eye{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;display:flex;align-items:center;gap:8px}
 .hero-eye::before{content:'';display:inline-block;width:18px;height:1.5px;background:var(--cyan);border-radius:2px}
-.hero-h{
-  font-size:clamp(44px,6vw,68px);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:14px;
-  background:linear-gradient(150deg,#fff 30%,rgba(255,255,255,.45));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-}
+.hero-h{font-size:clamp(44px,6vw,68px);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:14px;background:linear-gradient(150deg,#fff 30%,rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .hero-pills{display:flex;gap:8px;flex-wrap:wrap}
 .hero-r{text-align:right}
 .hero-blab{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px}
 .hero-bal{font-size:clamp(38px,5.5vw,60px);font-weight:700;letter-spacing:-2.5px;line-height:1;color:var(--green);text-shadow:0 0 50px rgba(48,209,88,.22)}
 .hero-chg{font-size:13px;color:var(--green);margin-top:6px;font-weight:500;display:flex;align-items:center;justify-content:flex-end;gap:4px}
 
-/* PILL */
 .pill{display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:100px;font-size:12px;font-weight:500;letter-spacing:-.1px;border:.5px solid transparent}
 .p-cyan{background:var(--cyan-s);color:var(--cyan);border-color:rgba(50,210,245,.15)}
 .p-green{background:var(--green-s);color:var(--green);border-color:rgba(48,209,88,.2)}
@@ -92,24 +70,14 @@ body{font-family:var(--sf);background:var(--bg);color:var(--t1);min-height:100vh
 .p-red{background:var(--red-s);color:var(--red);border-color:rgba(255,69,58,.2)}
 .p-glass{background:var(--glass);color:var(--t2);border-color:var(--glass-b)}
 
-/* SECTION */
 .sec{margin-bottom:44px}
 .sec-hd{display:flex;align-items:center;gap:14px;margin-bottom:18px}
 .sec-ttl{font-size:20px;font-weight:600;letter-spacing:-.5px;white-space:nowrap}
 .sec-line{flex:1;height:.5px;background:linear-gradient(90deg,rgba(255,255,255,.08),transparent)}
 
-/* CARD */
-.card{
-  background:var(--glass);
-  border:.5px solid var(--glass-b);
-  border-radius:20px;
-  backdrop-filter:blur(20px);
-  -webkit-backdrop-filter:blur(20px);
-  transition:border-color .25s,background .25s,box-shadow .25s;
-}
+.card{background:var(--glass);border:.5px solid var(--glass-b);border-radius:20px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:border-color .25s,background .25s,box-shadow .25s;}
 .card:hover{border-color:var(--glass-bb);background:rgba(255,255,255,.055);box-shadow:0 8px 40px rgba(0,0,0,.45)}
 
-/* STATS */
 .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
 .scard{padding:22px 24px;position:relative;overflow:hidden}
 .glow{position:absolute;width:70px;height:70px;border-radius:50%;top:-15px;right:-15px;opacity:.15;filter:blur(22px)}
@@ -119,18 +87,15 @@ body{font-family:var(--sf);background:var(--bg);color:var(--t1);min-height:100vh
 .sval{font-size:27px;font-weight:700;letter-spacing:-1px;line-height:1;margin-bottom:4px}
 .ssub{font-size:12px;color:var(--t3)}
 
-/* PROGRESS LAYOUT */
 .playout{display:grid;grid-template-columns:1fr 350px;gap:12px}
 .pcard{padding:30px}
 
-/* Progress */
 .ptop{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:30px}
 .plbl{font-size:11px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
 .pttl{font-size:22px;font-weight:700;letter-spacing:-.5px}
 .ppct-num{font-size:48px;font-weight:700;letter-spacing:-3px;line-height:1;background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .ppct-lbl{font-size:12px;color:var(--t3);margin-top:2px;text-align:right}
 
-/* track */
 .ptrack{height:5px;background:rgba(255,255,255,.07);border-radius:100px;overflow:visible;position:relative;margin-bottom:8px}
 .pfill{height:100%;border-radius:100px;background:linear-gradient(90deg,var(--cyan),var(--purple));box-shadow:0 0 14px rgba(50,210,245,.4);transition:width 1.2s cubic-bezier(.4,0,.2,1);position:relative}
 .pfill::after{content:'';position:absolute;right:-4px;top:-4px;width:13px;height:13px;background:#fff;border-radius:50%;box-shadow:0 0 10px rgba(50,210,245,.9)}
@@ -146,18 +111,12 @@ body{font-family:var(--sf);background:var(--bg);color:var(--t1);min-height:100vh
 .qblock::before{content:'"';position:absolute;top:6px;left:12px;font-size:36px;line-height:1;color:var(--cyan);opacity:.25;font-family:Georgia,serif}
 .qtxt{font-size:13px;color:var(--t2);line-height:1.65;font-style:italic;padding-left:20px}
 
-/* FORM */
 .fcard{padding:28px}
 .fttl{font-size:18px;font-weight:600;letter-spacing:-.4px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
 .fsub{font-size:13px;color:var(--t3);margin-bottom:22px}
 .fg{margin-bottom:14px}
 .flbl{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:500;color:var(--t2);margin-bottom:7px;letter-spacing:-.1px}
-.finput{
-  width:100%;background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.1);
-  border-radius:11px;padding:12px 15px;color:var(--t1);font-family:var(--sf);
-  font-size:15px;font-weight:400;letter-spacing:-.2px;outline:none;
-  transition:border-color .2s,background .2s,box-shadow .2s;-webkit-appearance:none;
-}
+.finput{width:100%;background:rgba(255,255,255,.05);border:.5px solid rgba(255,255,255,.1);border-radius:11px;padding:12px 15px;color:var(--t1);font-family:var(--sf);font-size:15px;font-weight:400;letter-spacing:-.2px;outline:none;transition:border-color .2s,background .2s,box-shadow .2s;-webkit-appearance:none;}
 .finput:focus{border-color:rgba(50,210,245,.4);background:rgba(50,210,245,.05);box-shadow:0 0 0 3px rgba(50,210,245,.09)}
 .finput::placeholder{color:var(--t4)}
 .finput[readonly]{opacity:.5;cursor:default}
@@ -167,13 +126,7 @@ textarea.finput{resize:none;height:82px;line-height:1.55}
 .calc-lbl{font-size:12px;color:var(--t3);font-weight:500}
 .calc-val{font-size:15px;font-weight:600;letter-spacing:-.3px}
 
-.btn-log{
-  width:100%;padding:13px;background:var(--cyan);border:none;border-radius:11px;
-  color:#000;font-family:var(--sf);font-size:15px;font-weight:600;cursor:pointer;
-  letter-spacing:-.2px;display:flex;align-items:center;justify-content:center;gap:7px;
-  transition:opacity .15s,transform .12s,box-shadow .2s;
-  box-shadow:0 4px 22px rgba(50,210,245,.28);
-}
+.btn-log{width:100%;padding:13px;background:var(--cyan);border:none;border-radius:11px;color:#000;font-family:var(--sf);font-size:15px;font-weight:600;cursor:pointer;letter-spacing:-.2px;display:flex;align-items:center;justify-content:center;gap:7px;transition:opacity .15s,transform .12s,box-shadow .2s;box-shadow:0 4px 22px rgba(50,210,245,.28);}
 .btn-log:hover{opacity:.87;transform:translateY(-1px);box-shadow:0 8px 30px rgba(50,210,245,.38)}
 .btn-log:active{transform:translateY(0)}
 
@@ -182,20 +135,21 @@ textarea.finput{resize:none;height:82px;line-height:1.55}
 .tip-t{font-size:11px;font-weight:600;color:var(--amber);text-transform:uppercase;letter-spacing:.07em;margin-bottom:3px}
 .tip-b{font-size:12px;color:var(--t2);line-height:1.55}
 
-/* CHARTS */
 .cgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .ccard{padding:24px}
 .cttl{font-size:16px;font-weight:600;letter-spacing:-.4px;margin-bottom:3px}
 .csub{font-size:12px;color:var(--t3);margin-bottom:20px}
 .cwrap{position:relative;height:215px}
 
-/* TABLE */
 .tcard{padding:28px}
 .thd{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px;flex-wrap:wrap;gap:12px}
 .tttl{font-size:18px;font-weight:600;letter-spacing:-.4px}
 .tacts{display:flex;align-items:center;gap:8px}
 .btn-csv{padding:7px 15px;background:var(--glass);border:.5px solid var(--glass-b);border-radius:9px;color:var(--t2);font-family:var(--sf);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,color .15s,border-color .15s;letter-spacing:-.1px}
 .btn-csv:hover{background:rgba(255,255,255,.08);border-color:var(--glass-bb);color:var(--t1)}
+
+.btn-reset{padding:7px 15px;background:rgba(255,69,58,.08);border:.5px solid rgba(255,69,58,.2);border-radius:9px;color:var(--red);font-family:var(--sf);font-size:13px;font-weight:500;cursor:pointer;transition:background .15s,border-color .15s;letter-spacing:-.1px}
+.btn-reset:hover{background:rgba(255,69,58,.14);border-color:rgba(255,69,58,.35)}
 
 .tscroll{overflow-x:auto;margin:0 -4px;padding:0 4px}
 table{width:100%;border-collapse:collapse}
@@ -218,56 +172,55 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
 .btn-del{width:28px;height:28px;background:none;border:.5px solid rgba(255,255,255,.1);border-radius:8px;color:var(--t3);cursor:pointer;font-size:12px;display:inline-flex;align-items:center;justify-content:center;transition:background .12s,border-color .12s,color .12s}
 .btn-del:hover{background:var(--red-s);border-color:rgba(255,69,58,.25);color:var(--red)}
 
-/* ANIM */
+/* Save indicator */
+.save-flash{position:fixed;bottom:28px;right:28px;background:rgba(48,209,88,.12);border:.5px solid rgba(48,209,88,.3);color:var(--green);font-size:12px;font-weight:600;padding:8px 16px;border-radius:100px;pointer-events:none;opacity:0;transform:translateY(6px);transition:opacity .25s,transform .25s;z-index:999;letter-spacing:-.1px}
+.save-flash.show{opacity:1;transform:translateY(0)}
+
 .fi{animation:fi .55s ease both}
 @keyframes fi{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .s1{animation-delay:.06s}.s2{animation-delay:.12s}.s3{animation-delay:.18s}.s4{animation-delay:.24s}
 
-/* SCROLLBAR */
 ::-webkit-scrollbar{width:4px;height:4px}
 ::-webkit-scrollbar-track{background:transparent}
 ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:2px}
 ::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.18)}
 
-/* RESPONSIVE */
 @media(max-width:960px){.sgrid{grid-template-columns:repeat(2,1fr)}.playout{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}}
 @media(max-width:600px){.hero{padding:32px 0 26px}.hero-h{font-size:40px}.pmeta{grid-template-columns:repeat(2,1fr)}.top-badge{display:none}.wrap{padding:0 16px 50px}}
 </style>
 </head>
 <body>
 <div class="amb"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div></div>
+<div class="save-flash" id="saveFlash">✓ Saved</div>
 <div class="app">
 
-<!-- TOPBAR -->
 <nav class="topbar">
   <div class="topbar-in">
     <div class="brand"><div class="brand-icon">🚀</div>Road to 10k</div>
     <div class="top-bal" id="topBal">$1,131.81</div>
-    <div class="top-badge">🏆 52 Active Days</div>
+    <div class="top-badge" id="topBadge">🏆 52 Active Days</div>
   </div>
 </nav>
 
 <div class="wrap">
 
-  <!-- HERO -->
   <div class="hero fi">
     <div>
       <div class="hero-eye">Proprietary Challenge</div>
       <div class="hero-h">Road to 10k</div>
       <div class="hero-pills">
-        <span class="pill p-green">✓ 63.5% Win Rate</span>
-        <span class="pill p-cyan">📅 52 Active Days</span>
-        <span class="pill p-amber">+213.7% Growth</span>
+        <span class="pill p-green" id="hWinRate">✓ 63.5% Win Rate</span>
+        <span class="pill p-cyan" id="hDays">📅 52 Active Days</span>
+        <span class="pill p-amber" id="hGrowth">+213.7% Growth</span>
       </div>
     </div>
     <div class="hero-r">
       <div class="hero-blab">Current Balance</div>
       <div class="hero-bal" id="heroBal">$1,131.81</div>
-      <div class="hero-chg">▲ +$834.96 from $361.18 start</div>
+      <div class="hero-chg" id="heroChg">▲ +$834.96 from $361.18 start</div>
     </div>
   </div>
 
-  <!-- STATS -->
   <div class="sec fi s1">
     <div class="sec-hd"><div class="sec-ttl">Overview</div><div class="sec-line"></div></div>
     <div class="sgrid">
@@ -282,15 +235,15 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
         <div class="glow" style="background:var(--green)"></div>
         <div class="ico ico-g">📈</div>
         <div class="slbl">Best Day</div>
-        <div class="sval" style="color:var(--green)">+$258.25</div>
-        <div class="ssub">Tue 27 Jan (+43.30%)</div>
+        <div class="sval" id="sBest" style="color:var(--green)">+$258.25</div>
+        <div class="ssub" id="sBestSub">Tue 27 Jan (+43.30%)</div>
       </div>
       <div class="card scard">
         <div class="glow" style="background:var(--red)"></div>
         <div class="ico ico-r">📉</div>
         <div class="slbl">Worst Day</div>
-        <div class="sval" style="color:var(--red)">-$254.66</div>
-        <div class="ssub">Fri 30 Jan (-26.37%)</div>
+        <div class="sval" id="sWorst" style="color:var(--red)">-$254.66</div>
+        <div class="ssub" id="sWorstSub">Fri 30 Jan (-26.37%)</div>
       </div>
       <div class="card scard">
         <div class="glow" style="background:var(--cyan)"></div>
@@ -302,7 +255,6 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
     </div>
   </div>
 
-  <!-- PROGRESS + FORM -->
   <div class="sec fi s2">
     <div class="sec-hd"><div class="sec-ttl">Mission Progress</div><div class="sec-line"></div></div>
     <div class="playout">
@@ -339,7 +291,7 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
         <div class="fsub">Record today's session results</div>
         <div class="fg">
           <div class="flbl">Date</div>
-          <input type="date" class="finput" id="fDate" value="2026-03-12">
+          <input type="date" class="finput" id="fDate" value="2026-03-13">
         </div>
         <div class="fg">
           <div class="flbl">Start Balance <span class="pill p-glass" style="padding:2px 8px;font-size:10px">Auto</span></div>
@@ -370,13 +322,12 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
     </div>
   </div>
 
-  <!-- CHARTS -->
   <div class="sec fi s3">
     <div class="sec-hd"><div class="sec-ttl">Performance</div><div class="sec-line"></div></div>
     <div class="cgrid">
       <div class="card ccard">
         <div class="cttl">Account Growth</div>
-        <div class="csub">Balance trajectory — $361.18 → $1,131.81</div>
+        <div class="csub" id="cGrowthSub">Balance trajectory — $361.18 → $1,131.81</div>
         <div class="cwrap"><canvas id="cGrowth"></canvas></div>
       </div>
       <div class="card ccard" style="padding:24px 28px">
@@ -398,7 +349,6 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
     </div>
   </div>
 
-  <!-- HISTORY -->
   <div class="sec fi s4">
     <div class="sec-hd"><div class="sec-ttl">Trade History</div><div class="sec-line"></div></div>
     <div class="card tcard">
@@ -409,6 +359,7 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
           <span class="pill p-red" id="tL">18 Losses</span>
         </div>
         <div class="tacts">
+          <button class="btn-reset" onclick="resetData()">↺ Reset</button>
           <button class="btn-csv" onclick="expCsv()">↓ Export CSV</button>
         </div>
       </div>
@@ -425,11 +376,14 @@ tbody td:first-child{padding-left:0} tbody td:last-child{text-align:center;paddi
 </div>
 
 <script>
-const GOAL=10000,SBAL=361.18;
+const GOAL=10000, SBAL=361.18;
+const STORAGE_KEY='road_to_10k_v1';
+
 const f=n=>'$'+n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g,',');
 const sg=n=>n>0?'+':'';
 
-let D=[
+// ── Default seed data ──────────────────────────────────────────
+const DEFAULT_DATA=[
   {date:"Wed 11 Mar",start:1007.37,end:1131.81,pnl:124.44,pct:12.35},
   {date:"Tue 10 Mar",start:954.00,end:1007.37,pnl:53.37,pct:5.59},
   {date:"Mon 9 Mar",start:1144.48,end:954.00,pnl:-190.48,pct:-16.64},
@@ -482,6 +436,36 @@ let D=[
   {date:"Tue 20 Jan",start:361.18,end:328.63,pnl:-32.55,pct:-9.01}
 ];
 
+// ── Persistence ────────────────────────────────────────────────
+function loadData(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(raw){
+      const parsed=JSON.parse(raw);
+      if(Array.isArray(parsed)&&parsed.length>0) return parsed;
+    }
+  }catch(e){}
+  // First load: seed with defaults and save
+  saveData(DEFAULT_DATA);
+  return DEFAULT_DATA.slice();
+}
+
+function saveData(arr){
+  try{
+    localStorage.setItem(STORAGE_KEY,JSON.stringify(arr));
+  }catch(e){console.warn('localStorage save failed',e);}
+}
+
+function flashSave(){
+  const el=document.getElementById('saveFlash');
+  el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),1800);
+}
+
+let D=loadData();
+
+// ── Stats ──────────────────────────────────────────────────────
 function upStats(){
   const cur=D.length>0?D[0].end:SBAL;
   const pct=Math.min((cur/GOAL)*100,100);
@@ -490,10 +474,33 @@ function upStats(){
   const wins=D.filter(r=>r.pnl>0).length;
   const losses=D.filter(r=>r.pnl<0).length;
   const be=D.filter(r=>r.pnl===0).length;
+  const wr=D.length>0?(wins/(wins+losses)*100):0;
+  const growth=SBAL>0?((cur-SBAL)/SBAL*100):0;
+  const days=D.length;
+
+  // Best / worst
+  let best=D.length>0?D.reduce((a,b)=>a.pnl>b.pnl?a:b):null;
+  let worst=D.length>0?D.reduce((a,b)=>a.pnl<b.pnl?a:b):null;
+
   document.getElementById('topBal').textContent=f(cur);
   document.getElementById('heroBal').textContent=f(cur);
+  document.getElementById('topBadge').textContent=`🏆 ${days} Active Days`;
+  document.getElementById('hWinRate').textContent=`✓ ${wr.toFixed(1)}% Win Rate`;
+  document.getElementById('hDays').textContent=`📅 ${days} Active Days`;
+  document.getElementById('hGrowth').textContent=`${growth>=0?'+':''}${growth.toFixed(1)}% Growth`;
+  document.getElementById('heroChg').textContent=`${tp>=0?'▲':'▼'} ${tp>=0?'+':''}${f(Math.abs(tp))} from $${SBAL.toFixed(2)} start`;
   document.getElementById('sPnl').textContent=(tp>=0?'+':'')+f(Math.abs(tp));
   document.getElementById('sPnl').style.color=tp>=0?'var(--green)':'var(--red)';
+
+  if(best){
+    document.getElementById('sBest').textContent=`${sg(best.pnl)}${f(Math.abs(best.pnl))}`;
+    document.getElementById('sBestSub').textContent=`${best.date} (${sg(best.pct)}${best.pct.toFixed(2)}%)`;
+  }
+  if(worst){
+    document.getElementById('sWorst').textContent=`${sg(worst.pnl)}${f(Math.abs(worst.pnl))}`;
+    document.getElementById('sWorstSub').textContent=`${worst.date} (${sg(worst.pct)}${worst.pct.toFixed(2)}%)`;
+  }
+
   document.getElementById('sWL').textContent=`${wins} / ${losses}`;
   document.getElementById('sBE').textContent=`${be} break-even`;
   document.getElementById('pPct').textContent=pct.toFixed(2)+'%';
@@ -503,6 +510,11 @@ function upStats(){
   document.getElementById('tW').textContent=`${wins} Wins`;
   document.getElementById('tL').textContent=`${losses} Losses`;
   document.getElementById('fStart').value=cur.toFixed(2);
+  document.getElementById('cGrowthSub').textContent=`Balance trajectory — $${SBAL.toFixed(2)} → ${f(cur)}`;
+
+  const totalPnl=D.reduce((a,b)=>a+b.pnl,0);
+  document.getElementById('pnlHoverVal').textContent=(totalPnl>=0?'+':'')+f(Math.abs(totalPnl));
+  document.getElementById('pnlHoverVal').style.color=totalPnl>=0?'var(--green)':'var(--red)';
 }
 
 function upTable(){
@@ -531,8 +543,8 @@ function del(i){
     const tr=rows[i];
     tr.style.transition='opacity .18s,transform .18s';
     tr.style.opacity='0';tr.style.transform='translateX(8px)';
-    setTimeout(()=>{D.splice(i,1);renderAll();},180);
-  }else{D.splice(i,1);renderAll();}
+    setTimeout(()=>{D.splice(i,1);saveData(D);flashSave();renderAll();},180);
+  }else{D.splice(i,1);saveData(D);flashSave();renderAll();}
 }
 
 function upPrev(){
@@ -558,25 +570,29 @@ function logDay(){
   const pnl=parseFloat((c-s).toFixed(2));
   const pct=s>0?parseFloat(((pnl/s)*100).toFixed(2)):0;
   D.unshift({date:lbl,start:s,end:c,pnl,pct});
+  saveData(D);
+  flashSave();
   document.getElementById('fClose').value='';
   document.getElementById('fNotes').value='';
   upPrev();renderAll();
 }
 
+function resetData(){
+  if(!confirm('Reset all data back to the original sessions? This cannot be undone.')) return;
+  D=DEFAULT_DATA.slice();
+  saveData(D);
+  flashSave();
+  renderAll();
+}
+
+// ── Charts ─────────────────────────────────────────────────────
 let gC;
 function upCharts(){
   const rev=[...D].reverse();
   const lbs=rev.map(r=>r.date.replace(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) /,''));
   const bals=rev.map(r=>r.end);
   const pnls=rev.map(r=>r.pnl);
-  const tt={
-    backgroundColor:'rgba(15,15,15,.96)',
-    borderColor:'rgba(255,255,255,.09)',borderWidth:.5,
-    titleColor:'rgba(255,255,255,.4)',bodyColor:'#fff',
-    padding:11,cornerRadius:11,
-    titleFont:{family:'-apple-system,Helvetica Neue,sans-serif',size:11},
-    bodyFont:{family:'-apple-system,Helvetica Neue,sans-serif',size:13,weight:'600'}
-  };
+  const tt={backgroundColor:'rgba(15,15,15,.96)',borderColor:'rgba(255,255,255,.09)',borderWidth:.5,titleColor:'rgba(255,255,255,.4)',bodyColor:'#fff',padding:11,cornerRadius:11,titleFont:{family:'-apple-system,Helvetica Neue,sans-serif',size:11},bodyFont:{family:'-apple-system,Helvetica Neue,sans-serif',size:13,weight:'600'}};
   const gc='rgba(255,255,255,.05)';
   const to={color:'rgba(255,255,255,.25)',font:{family:'-apple-system',size:10},padding:6};
   if(gC)gC.destroy();
@@ -584,222 +600,112 @@ function upCharts(){
     type:'line',
     data:{labels:lbs,datasets:[{data:bals,borderColor:'#32d2f5',borderWidth:1.5,pointRadius:0,pointHoverRadius:4,pointHoverBackgroundColor:'#32d2f5',fill:true,
       backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,215);g.addColorStop(0,'rgba(50,210,245,.16)');g.addColorStop(1,'rgba(50,210,245,0)');return g;},tension:.4}]},
-    options:{responsive:true,maintainAspectRatio:false,
-      plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>' '+f(c.raw)}}},
-      scales:{x:{ticks:{...to,maxTicksLimit:7},grid:{color:gc,drawBorder:false}},y:{ticks:{...to,callback:v=>'$'+v},grid:{color:gc,drawBorder:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>' '+f(c.raw)}}},scales:{x:{ticks:{...to,maxTicksLimit:7},grid:{color:gc,drawBorder:false}},y:{ticks:{...to,callback:v=>'$'+v},grid:{color:gc,drawBorder:false}}}}
   });
-  drawPnlChart(rev, pnls, lbs);
+  drawPnlChart(rev,pnls,lbs);
 }
 
-function drawPnlChart(rev, pnls, lbs) {
-  const canvas = document.getElementById('cPnl');
-  const container = canvas.parentElement;
-  const dpr = window.devicePixelRatio || 1;
-  const W = container.clientWidth;
-  const H = container.clientHeight;
-  canvas.width = W * dpr;
-  canvas.height = H * dpr;
-  canvas.style.width = W + 'px';
-  canvas.style.height = H + 'px';
-  const ctx = canvas.getContext('2d');
-  ctx.scale(dpr, dpr);
+function drawPnlChart(rev,pnls,lbs){
+  const canvas=document.getElementById('cPnl');
+  const container=canvas.parentElement;
+  const dpr=window.devicePixelRatio||1;
+  const W=container.clientWidth,H=container.clientHeight;
+  canvas.width=W*dpr;canvas.height=H*dpr;
+  canvas.style.width=W+'px';canvas.style.height=H+'px';
+  const ctx=canvas.getContext('2d');ctx.scale(dpr,dpr);
+  const PAD_L=50,PAD_R=12,PAD_T=16,PAD_B=40;
+  const cW=W-PAD_L-PAD_R,cH=H-PAD_T-PAD_B;
+  const n=pnls.length;
+  const slotW=cW/n;
+  const barW=Math.max(Math.floor(slotW*.55),4);
+  const barOffset=(slotW-barW)/2;
+  const maxV=Math.max(...pnls.map(Math.abs),50)*1.2;
+  const zeroY=PAD_T+cH/2;
+  const niceMax=Math.ceil(maxV/50)*50;
+  const ySteps=[];
+  for(let v=-niceMax;v<=niceMax;v+=50)ySteps.push(v);
+  const SF=`-apple-system,"SF Pro Text","Helvetica Neue",sans-serif`;
+  let hoveredIdx=-1;
+  const hitZones=[];
 
-  const PAD_L = 50, PAD_R = 12, PAD_T = 16, PAD_B = 40;
-  const cW = W - PAD_L - PAD_R;
-  const cH = H - PAD_T - PAD_B;
-  const n = pnls.length;
+  function yPos(v){return PAD_T+cH*(1-(v+niceMax)/(2*niceMax));}
 
-  // Bar sizing: fixed slot width so bars are always chunky
-  const slotW = cW / n;
-  const barW = Math.max(Math.floor(slotW * 0.55), 4);
-  const barOffset = (slotW - barW) / 2;
-
-  const maxV = Math.max(...pnls.map(Math.abs), 50) * 1.2;
-  const zeroY = PAD_T + cH / 2;
-
-  // Nice Y grid values
-  const niceMax = Math.ceil(maxV / 50) * 50;
-  const ySteps = [];
-  for (let v = -niceMax; v <= niceMax; v += 50) ySteps.push(v);
-
-  const SF = `-apple-system, "SF Pro Text", "Helvetica Neue", sans-serif`;
-
-  let hoveredIdx = -1;
-  const hitZones = [];
-
-  function yPos(v) {
-    return PAD_T + cH * (1 - (v + niceMax) / (2 * niceMax));
-  }
-
-  function roundRect(c, x, y, w, h, r, isPos) {
-    r = Math.min(r, w / 2, Math.abs(h) / 2);
+  function roundRect(c,x,y,w,h,r,isPos){
+    r=Math.min(r,w/2,Math.abs(h)/2);
     c.beginPath();
-    if (isPos) {
-      // Round top corners only
-      c.moveTo(x + r, y);
-      c.lineTo(x + w - r, y);
-      c.arcTo(x + w, y, x + w, y + r, r);
-      c.lineTo(x + w, y + h);
-      c.lineTo(x, y + h);
-      c.lineTo(x, y + r);
-      c.arcTo(x, y, x + r, y, r);
-    } else {
-      // Round bottom corners only
-      c.moveTo(x, y);
-      c.lineTo(x + w, y);
-      c.lineTo(x + w, y + h - r);
-      c.arcTo(x + w, y + h, x + w - r, y + h, r);
-      c.lineTo(x + r, y + h);
-      c.arcTo(x, y + h, x, y + h - r, r);
-      c.lineTo(x, y);
-    }
+    if(isPos){c.moveTo(x+r,y);c.lineTo(x+w-r,y);c.arcTo(x+w,y,x+w,y+r,r);c.lineTo(x+w,y+h);c.lineTo(x,y+h);c.lineTo(x,y+r);c.arcTo(x,y,x+r,y,r);}
+    else{c.moveTo(x,y);c.lineTo(x+w,y);c.lineTo(x+w,y+h-r);c.arcTo(x+w,y+h,x+w-r,y+h,r);c.lineTo(x+r,y+h);c.arcTo(x,y+h,x,y+h-r,r);c.lineTo(x,y);}
     c.closePath();
   }
 
-  function draw(hovered) {
-    ctx.clearRect(0, 0, W, H);
-
-    // Y grid lines + labels
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'middle';
-    ySteps.forEach(v => {
-      const y = yPos(v);
-      if (y < PAD_T - 1 || y > PAD_T + cH + 1) return;
-      const isZero = v === 0;
-      ctx.strokeStyle = isZero ? 'rgba(255,255,255,0.18)' : 'rgba(255,255,255,0.06)';
-      ctx.lineWidth = isZero ? 1 : 0.5;
-      ctx.setLineDash(isZero ? [] : [2, 5]);
-      ctx.beginPath(); ctx.moveTo(PAD_L, y); ctx.lineTo(PAD_L + cW, y); ctx.stroke();
-      ctx.setLineDash([]);
-      // Only label every 100
-      if (v % 100 === 0) {
-        ctx.fillStyle = isZero ? 'rgba(255,255,255,0.7)' : 'rgba(255,255,255,0.4)';
-        ctx.font = `500 11px ${SF}`;
-        ctx.fillText('$' + v, PAD_L - 7, y);
-      }
+  function draw(hovered){
+    ctx.clearRect(0,0,W,H);
+    ctx.textAlign='right';ctx.textBaseline='middle';
+    ySteps.forEach(v=>{
+      const y=yPos(v);
+      if(y<PAD_T-1||y>PAD_T+cH+1)return;
+      const isZero=v===0;
+      ctx.strokeStyle=isZero?'rgba(255,255,255,0.18)':'rgba(255,255,255,0.06)';
+      ctx.lineWidth=isZero?1:.5;ctx.setLineDash(isZero?[]:[2,5]);
+      ctx.beginPath();ctx.moveTo(PAD_L,y);ctx.lineTo(PAD_L+cW,y);ctx.stroke();ctx.setLineDash([]);
+      if(v%100===0){ctx.fillStyle=isZero?'rgba(255,255,255,0.7)':'rgba(255,255,255,0.4)';ctx.font=`500 11px ${SF}`;ctx.fillText('$'+v,PAD_L-7,y);}
     });
-
-    // Bars
-    hitZones.length = 0;
-    pnls.forEach((v, i) => {
-      const isPos = v >= 0;
-      const isHov = i === hovered;
-      const barH = (Math.abs(v) / niceMax) * (cH / 2);
-      const x = PAD_L + i * slotW + barOffset;
-      const y = isPos ? zeroY - barH : zeroY;
-
-      hitZones.push({ x: PAD_L + i * slotW, w: slotW, i });
-
-      const baseAlpha = isHov ? 0.95 : 0.72;
-      ctx.fillStyle = isPos ? `rgba(48,209,88,${baseAlpha})` : `rgba(255,69,58,${baseAlpha})`;
-
-      if (isHov) {
-        ctx.shadowColor = isPos ? 'rgba(48,209,88,0.6)' : 'rgba(255,69,58,0.6)';
-        ctx.shadowBlur = 10;
-      }
-
-      roundRect(ctx, x, isPos ? zeroY - barH : zeroY, barW, barH, 3, isPos);
-      ctx.fill();
-      ctx.shadowBlur = 0;
+    hitZones.length=0;
+    pnls.forEach((v,i)=>{
+      const isPos=v>=0,isHov=i===hovered;
+      const barH=(Math.abs(v)/niceMax)*(cH/2);
+      const x=PAD_L+i*slotW+barOffset;
+      hitZones.push({x:PAD_L+i*slotW,w:slotW,i});
+      const baseAlpha=isHov?.95:.72;
+      ctx.fillStyle=isPos?`rgba(48,209,88,${baseAlpha})`:`rgba(255,69,58,${baseAlpha})`;
+      if(isHov){ctx.shadowColor=isPos?'rgba(48,209,88,0.6)':'rgba(255,69,58,0.6)';ctx.shadowBlur=10;}
+      roundRect(ctx,x,isPos?zeroY-barH:zeroY,barW,barH,3,isPos);ctx.fill();ctx.shadowBlur=0;
     });
-
-    // X axis labels — pick ~7 evenly spaced, use short format "20 Jan"
-    ctx.fillStyle = 'rgba(255,255,255,0.62)';
-    ctx.font = `500 11px ${SF}`;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'alphabetic';
-    const labelStep = Math.max(1, Math.floor(n / 7));
-    const shown = new Set();
-    for (let i = 0; i < n; i += labelStep) shown.add(i);
-    shown.add(n - 1);
-    shown.forEach(i => {
-      // Format: "20 Jan" from "Wed 20 Jan" — drop day name
-      const parts = rev[i].date.split(' ');
-      const shortLbl = parts.length >= 3 ? parts[1] + ' ' + parts[2] : rev[i].date;
-      const x = PAD_L + i * slotW + slotW / 2;
-      ctx.fillText(shortLbl, x, H - 10);
+    ctx.fillStyle='rgba(255,255,255,0.62)';ctx.font=`500 11px ${SF}`;ctx.textAlign='center';ctx.textBaseline='alphabetic';
+    const labelStep=Math.max(1,Math.floor(n/7));
+    const shown=new Set();
+    for(let i=0;i<n;i+=labelStep)shown.add(i);shown.add(n-1);
+    shown.forEach(i=>{
+      const parts=rev[i].date.split(' ');
+      const shortLbl=parts.length>=3?parts[1]+' '+parts[2]:rev[i].date;
+      const x=PAD_L+i*slotW+slotW/2;
+      ctx.fillText(shortLbl,x,H-10);
     });
-
-    // Hover tooltip
-    if (hovered >= 0 && hovered < pnls.length) {
-      const v = pnls[hovered];
-      const isPos = v >= 0;
-      const d = rev[hovered];
-      const line1 = d.date;
-      const line2 = (isPos ? '+' : '') + f(Math.abs(v));
-      const line3 = (isPos ? '+' : '') + d.pct.toFixed(2) + '%';
-
-      ctx.font = `600 13px ${SF}`;
-      const tw = Math.max(
-        ctx.measureText(line1).width,
-        ctx.measureText(line2).width,
-        ctx.measureText(line3).width
-      ) + 28;
-      const th = 64;
-      const bx = PAD_L + hovered * slotW + slotW / 2;
-      let tx = bx - tw / 2;
-      tx = Math.max(PAD_L, Math.min(tx, W - PAD_R - tw));
-      const ty = PAD_T + 2;
-
-      // Shadow + box
-      ctx.shadowColor = 'rgba(0,0,0,0.5)';
-      ctx.shadowBlur = 16;
-      ctx.fillStyle = 'rgba(18,18,20,0.97)';
-      ctx.strokeStyle = isPos ? 'rgba(48,209,88,0.35)' : 'rgba(255,69,58,0.35)';
-      ctx.lineWidth = 0.75;
-      const br = 10;
-      ctx.beginPath();
-      ctx.roundRect(tx, ty, tw, th, br);
-      ctx.fill(); ctx.stroke();
-      ctx.shadowBlur = 0;
-
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'alphabetic';
-
-      ctx.fillStyle = 'rgba(255,255,255,0.38)';
-      ctx.font = `500 10px ${SF}`;
-      ctx.fillText(line1, tx + 13, ty + 18);
-
-      ctx.fillStyle = isPos ? '#30d158' : '#ff453a';
-      ctx.font = `700 14px ${SF}`;
-      ctx.fillText(line2, tx + 13, ty + 37);
-
-      ctx.fillStyle = 'rgba(255,255,255,0.4)';
-      ctx.font = `500 11px ${SF}`;
-      ctx.fillText(line3, tx + 13, ty + 53);
+    if(hovered>=0&&hovered<pnls.length){
+      const v=pnls[hovered],isPos=v>=0,d=rev[hovered];
+      const line1=d.date,line2=(isPos?'+':'')+f(Math.abs(v)),line3=(isPos?'+':'')+d.pct.toFixed(2)+'%';
+      ctx.font=`600 13px ${SF}`;
+      const tw=Math.max(ctx.measureText(line1).width,ctx.measureText(line2).width,ctx.measureText(line3).width)+28,th=64;
+      const bx=PAD_L+hovered*slotW+slotW/2;
+      let tx=bx-tw/2;tx=Math.max(PAD_L,Math.min(tx,W-PAD_R-tw));const ty=PAD_T+2;
+      ctx.shadowColor='rgba(0,0,0,0.5)';ctx.shadowBlur=16;
+      ctx.fillStyle='rgba(18,18,20,0.97)';ctx.strokeStyle=isPos?'rgba(48,209,88,0.35)':'rgba(255,69,58,0.35)';ctx.lineWidth=.75;
+      ctx.beginPath();ctx.roundRect(tx,ty,tw,th,10);ctx.fill();ctx.stroke();ctx.shadowBlur=0;
+      ctx.textAlign='left';ctx.textBaseline='alphabetic';
+      ctx.fillStyle='rgba(255,255,255,0.38)';ctx.font=`500 10px ${SF}`;ctx.fillText(line1,tx+13,ty+18);
+      ctx.fillStyle=isPos?'#30d158':'#ff453a';ctx.font=`700 14px ${SF}`;ctx.fillText(line2,tx+13,ty+37);
+      ctx.fillStyle='rgba(255,255,255,0.4)';ctx.font=`500 11px ${SF}`;ctx.fillText(line3,tx+13,ty+53);
     }
   }
 
   draw(-1);
 
-  canvas.onmousemove = e => {
-    const rect = canvas.getBoundingClientRect();
-    const mx = (e.clientX - rect.left);
-    let found = -1;
-    hitZones.forEach(z => { if (mx >= z.x && mx < z.x + z.w) found = z.i; });
-    if (found !== hoveredIdx) {
-      hoveredIdx = found;
-      draw(hoveredIdx);
-      const total = pnls.reduce((a, b) => a + b, 0);
-      if (found >= 0) {
-        const v = pnls[found];
-        const isPos = v >= 0;
-        document.getElementById('pnlHoverVal').textContent = (isPos?'+':'') + f(Math.abs(v));
-        document.getElementById('pnlHoverVal').style.color = isPos ? 'var(--green)' : 'var(--red)';
-        document.getElementById('pnlHoverBox').querySelector('div').textContent = rev[found].date;
-      } else {
-        document.getElementById('pnlHoverVal').textContent = (total>=0?'+':'') + f(Math.abs(total));
-        document.getElementById('pnlHoverVal').style.color = 'var(--green)';
-        document.getElementById('pnlHoverBox').querySelector('div').textContent = 'Total PNL';
-      }
+  canvas.onmousemove=e=>{
+    const rect=canvas.getBoundingClientRect(),mx=(e.clientX-rect.left);
+    let found=-1;hitZones.forEach(z=>{if(mx>=z.x&&mx<z.x+z.w)found=z.i;});
+    if(found!==hoveredIdx){
+      hoveredIdx=found;draw(hoveredIdx);
+      const total=pnls.reduce((a,b)=>a+b,0);
+      if(found>=0){const v=pnls[found],isPos=v>=0;document.getElementById('pnlHoverVal').textContent=(isPos?'+':'')+f(Math.abs(v));document.getElementById('pnlHoverVal').style.color=isPos?'var(--green)':'var(--red)';document.getElementById('pnlHoverBox').querySelector('div').textContent=rev[found].date;}
+      else{document.getElementById('pnlHoverVal').textContent=(total>=0?'+':'')+f(Math.abs(total));document.getElementById('pnlHoverVal').style.color='var(--green)';document.getElementById('pnlHoverBox').querySelector('div').textContent='Total PNL';}
     }
   };
-  canvas.onmouseleave = () => {
-    hoveredIdx = -1; draw(-1);
-    const total = pnls.reduce((a, b) => a + b, 0);
-    document.getElementById('pnlHoverVal').textContent = (total>=0?'+':'') + f(Math.abs(total));
-    document.getElementById('pnlHoverVal').style.color = 'var(--green)';
-    document.getElementById('pnlHoverBox').querySelector('div').textContent = 'Total PNL';
+  canvas.onmouseleave=()=>{
+    hoveredIdx=-1;draw(-1);
+    const total=pnls.reduce((a,b)=>a+b,0);
+    document.getElementById('pnlHoverVal').textContent=(total>=0?'+':'')+f(Math.abs(total));
+    document.getElementById('pnlHoverVal').style.color='var(--green)';
+    document.getElementById('pnlHoverBox').querySelector('div').textContent='Total PNL';
   };
 }
 
