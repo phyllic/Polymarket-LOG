@@ -13,11 +13,11 @@
 html{scroll-behavior:smooth}
 :root {
   --f:'JetBrains Mono',monospace;
-  --bg:#141414;
-  --bg1:#1a1a1a;
-  --bg2:#1f1f1f;
-  --bd:rgba(255,255,255,0.07);
-  --bdh:rgba(255,255,255,0.13);
+  --bg:#111111;
+  --bg1:#1c1c1c;
+  --bg2:#242424;
+  --bd:rgba(255,255,255,0.10);
+  --bdh:rgba(255,255,255,0.18);
   --green:#4ade80;
   --green-d:rgba(74,222,128,0.08);
   --red:#f87171;
@@ -485,13 +485,13 @@ function upCharts(){
   const bals=rev.map(r=>r.end);
   const pnls=rev.map(r=>r.pnl);
   const tt={backgroundColor:'rgba(20,20,20,.95)',borderColor:'rgba(255,255,255,.08)',borderWidth:.5,titleColor:'rgba(255,255,255,.35)',bodyColor:'#fff',padding:10,cornerRadius:3,titleFont:{family:SF,size:10},bodyFont:{family:SF,size:12,weight:'600'}};
-  const gc='rgba(255,255,255,.04)';
+  const gc='rgba(255,255,255,.07)';
   const to={color:'rgba(255,255,255,.22)',font:{family:SF,size:10},padding:6};
   if(gC)gC.destroy();
   gC=new Chart(document.getElementById('cGrowth'),{
     type:'line',
     data:{labels:lbs,datasets:[{data:bals,borderColor:'#4ade80',borderWidth:1.5,pointRadius:0,pointHoverRadius:3,pointHoverBackgroundColor:'#4ade80',fill:true,
-      backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,180);g.addColorStop(0,'rgba(74,222,128,.1)');g.addColorStop(1,'rgba(74,222,128,0)');return g;},tension:.4}]},
+      backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,180);g.addColorStop(0,'rgba(74,222,128,.18)');g.addColorStop(1,'rgba(74,222,128,0)');return g;},tension:.4}]},
     options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>' '+f(c.raw)}}},scales:{x:{ticks:{...to,maxTicksLimit:7},grid:{color:gc,drawBorder:false}},y:{ticks:{...to,callback:v=>'$'+v},grid:{color:gc,drawBorder:false}}}}
   });
   drawPnlChart(rev,pnls,lbs);
