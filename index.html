@@ -104,6 +104,11 @@ textarea.finput{resize:none;height:64px;line-height:1.5}
 .cttl{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);margin-bottom:2px}
 .csub{font-size:11px;color:var(--t3);margin-bottom:14px}
 .cwrap{position:relative;height:180px}
+.c-filters{display:flex;gap:4px;margin-bottom:12px}
+.c-fbtn{padding:3px 10px;background:none;border:1px solid var(--bd);border-radius:2px;color:var(--t3);font-family:var(--f);font-size:10px;font-weight:500;cursor:pointer;transition:border-color .15s,color .15s,background .15s;letter-spacing:.04em}
+.c-fbtn:hover{border-color:var(--bdh);color:var(--t1)}
+.c-fbtn.active{border-color:var(--green);color:var(--green);background:rgba(74,222,128,.06)}
+.chart-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
 
 /* ── TABLE ── */
 .tcard{padding:18px 20px}
@@ -257,12 +262,22 @@ tbody td:last-child{text-align:center;padding-right:0}
     <div class="sec-hd"><div class="sec-ttl">Performance</div><div class="sec-line"></div></div>
     <div class="cgrid">
       <div class="card ccard">
-        <div class="cttl">Account Growth</div>
-        <div class="csub" id="cGrowthSub">$361.18 → $1,131.81</div>
+        <div class="chart-top">
+          <div>
+            <div class="cttl">Account Growth</div>
+            <div class="csub" id="cGrowthSub" style="margin-bottom:0">$361.18 → $1,131.81</div>
+          </div>
+          <div class="c-filters" id="growthFilters">
+            <button class="c-fbtn" data-range="1" onclick="setChartRange('growth',1)">1D</button>
+            <button class="c-fbtn" data-range="7" onclick="setChartRange('growth',7)">1W</button>
+            <button class="c-fbtn" data-range="30" onclick="setChartRange('growth',30)">1M</button>
+            <button class="c-fbtn active" data-range="0" onclick="setChartRange('growth',0)">All</button>
+          </div>
+        </div>
         <div class="cwrap"><canvas id="cGrowth"></canvas></div>
       </div>
       <div class="card ccard">
-        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
+        <div class="chart-top">
           <div>
             <div class="cttl">Daily P&amp;L</div>
             <div class="csub" style="margin-bottom:0;display:flex;align-items:center;gap:10px">
@@ -270,9 +285,17 @@ tbody td:last-child{text-align:center;padding-right:0}
               <span style="display:inline-flex;align-items:center;gap:4px"><span style="width:7px;height:7px;border-radius:1px;background:var(--red);display:inline-block"></span>Loss</span>
             </div>
           </div>
-          <div id="pnlHoverBox" style="text-align:right">
-            <div style="font-size:10px;color:var(--t3);margin-bottom:2px;text-transform:uppercase;letter-spacing:.07em">Total PNL</div>
-            <div id="pnlHoverVal" style="font-size:15px;font-weight:700;color:var(--green)">+$834.96</div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px">
+            <div class="c-filters" id="pnlFilters">
+              <button class="c-fbtn" data-range="1" onclick="setChartRange('pnl',1)">1D</button>
+              <button class="c-fbtn" data-range="7" onclick="setChartRange('pnl',7)">1W</button>
+              <button class="c-fbtn" data-range="30" onclick="setChartRange('pnl',30)">1M</button>
+              <button class="c-fbtn active" data-range="0" onclick="setChartRange('pnl',0)">All</button>
+            </div>
+            <div id="pnlHoverBox" style="text-align:right">
+              <div style="font-size:10px;color:var(--t3);margin-bottom:2px;text-transform:uppercase;letter-spacing:.07em">Total PNL</div>
+              <div id="pnlHoverVal" style="font-size:15px;font-weight:700;color:var(--green)">+$834.96</div>
+            </div>
           </div>
         </div>
         <div style="position:relative;height:180px"><canvas id="cPnl"></canvas></div>
@@ -479,22 +502,48 @@ function resetData(){
 }
 
 let gC;
+let chartRanges={growth:0,pnl:0};
+
+function setChartRange(chart,range){
+  chartRanges[chart]=range;
+  const containerId=chart==='growth'?'growthFilters':'pnlFilters';
+  document.querySelectorAll('#'+containerId+' .c-fbtn').forEach(b=>{
+    b.classList.toggle('active',parseInt(b.dataset.range)===range);
+  });
+  upCharts();
+}
+
+function sliceData(arr,range){
+  if(range===0||range>=arr.length)return arr;
+  return arr.slice(arr.length-range);
+}
+
 function upCharts(){
   const rev=[...D].reverse();
-  const lbs=rev.map(r=>r.date.replace(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) /,''));
-  const bals=rev.map(r=>r.end);
-  const pnls=rev.map(r=>r.pnl);
+  const gRange=chartRanges.growth;
+  const pRange=chartRanges.pnl;
+
+  const gData=sliceData(rev,gRange);
+  const pData=sliceData(rev,pRange);
+
+  const gLbs=gData.map(r=>r.date.replace(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) /,''));
+  const gBals=gData.map(r=>r.end);
+
+  const pLbs=pData.map(r=>r.date.replace(/^(Mon|Tue|Wed|Thu|Fri|Sat|Sun) /,''));
+  const pPnls=pData.map(r=>r.pnl);
+
   const tt={backgroundColor:'rgba(20,20,20,.95)',borderColor:'rgba(255,255,255,.08)',borderWidth:.5,titleColor:'rgba(255,255,255,.35)',bodyColor:'#fff',padding:10,cornerRadius:3,titleFont:{family:SF,size:10},bodyFont:{family:SF,size:12,weight:'600'}};
   const gc='rgba(255,255,255,.07)';
   const to={color:'rgba(255,255,255,.22)',font:{family:SF,size:10},padding:6};
+  const maxTicks=Math.min(7,gLbs.length);
   if(gC)gC.destroy();
   gC=new Chart(document.getElementById('cGrowth'),{
     type:'line',
-    data:{labels:lbs,datasets:[{data:bals,borderColor:'#4ade80',borderWidth:1.5,pointRadius:0,pointHoverRadius:3,pointHoverBackgroundColor:'#4ade80',fill:true,
+    data:{labels:gLbs,datasets:[{data:gBals,borderColor:'#4ade80',borderWidth:1.5,pointRadius:gBals.length<=7?3:0,pointHoverRadius:3,pointHoverBackgroundColor:'#4ade80',fill:true,
       backgroundColor:ctx=>{const g=ctx.chart.ctx.createLinearGradient(0,0,0,180);g.addColorStop(0,'rgba(74,222,128,.18)');g.addColorStop(1,'rgba(74,222,128,0)');return g;},tension:.4}]},
-    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>' '+f(c.raw)}}},scales:{x:{ticks:{...to,maxTicksLimit:7},grid:{color:gc,drawBorder:false}},y:{ticks:{...to,callback:v=>'$'+v},grid:{color:gc,drawBorder:false}}}}
+    options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{...tt,callbacks:{label:c=>' '+f(c.raw)}}},scales:{x:{ticks:{...to,maxTicksLimit:maxTicks,maxRotation:0,autoSkip:true,autoSkipPadding:12},grid:{color:gc,drawBorder:false}},y:{ticks:{...to,callback:v=>'$'+v},grid:{color:gc,drawBorder:false}}}}
   });
-  drawPnlChart(rev,pnls,lbs);
+  drawPnlChart(pData,pPnls,pLbs);
 }
 
 function drawPnlChart(rev,pnls,lbs){
@@ -553,9 +602,18 @@ function drawPnlChart(rev,pnls,lbs){
       roundRect(ctx,x,isPos?zeroY-barH:zeroY,barW,barH,2,isPos);ctx.fill();ctx.shadowBlur=0;
     });
     ctx.fillStyle='rgba(255,255,255,0.35)';ctx.font=`500 10px ${SF}`;ctx.textAlign='center';ctx.textBaseline='alphabetic';
-    const labelStep=Math.max(1,Math.floor(n/7));
+    const maxLabels=Math.min(7,n);
+    const labelStep=n<=maxLabels?1:Math.ceil(n/maxLabels);
     const shown=new Set();
-    for(let i=0;i<n;i+=labelStep)shown.add(i);shown.add(n-1);
+    for(let i=0;i<n;i+=labelStep)shown.add(i);
+    if(n>1)shown.add(n-1);
+    // Remove last label if too close to previous
+    const sortedShown=[...shown].sort((a,b)=>a-b);
+    if(sortedShown.length>=2){
+      const last=sortedShown[sortedShown.length-1];
+      const prev=sortedShown[sortedShown.length-2];
+      if((last-prev)<labelStep*0.6)shown.delete(last);
+    }
     shown.forEach(i=>{
       const parts=rev[i].date.split(' ');
       const shortLbl=parts.length>=3?parts[1]+' '+parts[2]:rev[i].date;
